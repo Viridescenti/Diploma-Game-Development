@@ -8,7 +8,7 @@ public class ClickDrag : MonoBehaviour
 
     Rigidbody _dragObject;
     Vector3 _offset;
-    vector3 _originalPosition;
+    Vector3 _originalPosition;
     float _selectionDistance;
 
     //public GameObject marker;
@@ -17,7 +17,7 @@ public class ClickDrag : MonoBehaviour
         _camera = Camera.main ? Camera.main : FindObjectOfType<Camera>();
     }
 
-    private void update()
+    private void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -28,8 +28,7 @@ public class ClickDrag : MonoBehaviour
             // Bool value
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                _selectionDistance = hit.distance;
-                -_dragObject = hit.rigidbody;
+                _selectionDistance = hit.distance; _dragObject = hit.rigidbody;
 
                 _offset = hit.point;
                     /*_camera.ScreenToViewportPoint(
@@ -56,7 +55,7 @@ public class ClickDrag : MonoBehaviour
         if(_dragObject)
         {
             Vector3 mouseObjectDelta = _camera.ScreenToViewportPoint(
-                    new vector3(Input.mousePosition.x,
+                    new Vector3(Input.mousePosition.x,
                     Input.mousePosition.y,
                     _selectionDistance));
             _dragObject.velocity = (_originalPosition + mouseObjectDelta
