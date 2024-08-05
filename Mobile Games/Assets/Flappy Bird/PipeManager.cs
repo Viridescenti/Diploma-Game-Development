@@ -7,6 +7,7 @@ namespace Flappy
 {
     public class PipeManager : MonoBehaviour
     {
+        #region Variables
         [Tooltip("The prefab of the pipe pair to spawn")]
         [SerializeField] private GameObject _pipePrefab;
         [Tooltip("How far up or down the pipes can spawn from centre")]
@@ -20,10 +21,13 @@ namespace Flappy
         private PipePair[] _pipesInScene = new PipePair[4];
         // Track the last pipe we spawned
         private int _pipeIndex;
-
         // 
         public PipePair CurrentPipe => _pipesInScene[_pipeIndex];
+        #endregion
 
+
+
+        #region Update
         void Update()
         {
             if (RoundManager.RoundActive &&
@@ -33,7 +37,10 @@ namespace Flappy
                 SpawnPipe();
             }
         }
+        #endregion
 
+
+        #region Spawn Pipes
         private void SpawnPipe()
         {
             // Set the last spawned time to now
@@ -59,7 +66,9 @@ namespace Flappy
                 _pipeIndex = 0;
             }
         }
+        #endregion
 
+        #region Stop Pipes
         public void Stop()
         {
             foreach (PipePair pair in _pipesInScene)
@@ -70,6 +79,10 @@ namespace Flappy
                 pair.Stop();
             }
         }
+        #endregion
+
+
+        #region Reset
         public void Reset()
         {
             _pipeLastSpawnTime = Time.time;
@@ -81,6 +94,7 @@ namespace Flappy
                 pair.transform.position = transform.position;
             }
         }
+        #endregion
     }
 }
 
